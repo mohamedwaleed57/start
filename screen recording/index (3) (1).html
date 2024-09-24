@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الشاشة والصوت</title>
+</head>
+<body>
+    <style>
+        body{
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #000;
+            color: #fff;
+        }
+        #stopButton, #startButton{
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            background-color: #000;
+            color: white;
+            border: 5px #fff solid;
+            border-radius: 5px;
+            outline: none;
+        }
+        #videoPlayback{
+            width: 50%;
+            height: 500px;
+            margin-top: 30px;
+            border: #fff solid 5px;
+        }
+    </style>
+    <h1>Screen Recorder</h1>
+    <button id="startButton">Start Recording</button>
+    <button id="stopButton" disabled>Stop Recording</button>
+    <video id="videoPlayback" controls style="width: 100%;"></video>
+
+    <script>
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const videoPlayback = document.getElementById('videoPlayback');
+        
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        startButton.addEventListener('click', async () => {
+            startButton.disabled = true;
+            stopButton.disabled = false;
+            recordedChunks = [];
+
+            try {
+                // احصل على دفق الفيديو من الشاشة
+                const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                // احصل على دفق الصوت من الميكروفون
+                const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+                // مزج دفق الشاشة مع دفق الصوت
+                const combinedStream = new MediaStream([...screenStream.getTracks(), ...audioStream.getTracks()]);
+
+                mediaRecorder = new MediaRecorder(combinedStream);
+
+                mediaRecorder.ondataavailable = event => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const videoBlob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const videoUrl = URL.createObjectURL(videoBlob);
+                    videoPlayback.src = videoUrl;
+                };
+
+                mediaRecorder.start();
+            } catch (err) {
+                console.error('خطأ في الوصول إلى دفق الوسائط:', err);
+                startButton.disabled = false;
+                stopButton.disabled = true;
+            }
+        });
+
+        stopButton.addEventListener('click', () => {
+            startButton.disabled = false;
+            stopButton.disabled = true;
+            mediaRecorder.stop();
+        });
+    </script>
+</body>
+</html>

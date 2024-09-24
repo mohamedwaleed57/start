@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>vCard QR Code Generator</title>
+</head>
+<body>
+    <h1>vCard QR Code Generator</h1>
+    <div id="qrcode"></div>
+        <input type="text" class="inp" id="firstName" placeholder="First Name">
+        <br>
+        <br>
+        <br>
+        <input type="text" class="inp" id="lastName" placeholder="Last Name">
+        <br>
+        <br>
+        <br>
+        <input type="number" class="inp" id="phone" placeholder="Phone Number">
+        <br>
+        <br>
+        <br>
+        <input type="email" class="inp" id="email" placeholder="Email">
+        <br>
+        <br>
+        <br>
+        <input type="text" class="inp" id="address" placeholder="Address">
+        <button id="generateBtn">Generate QR Code</button>
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

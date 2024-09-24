@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>USB Flash Drive Scanner</title>
+</head>
+<body>
+    <h1>USB Flash Drive Scanner</h1>
+    <button id="checkUsbButton">Check for USB Devices</button>
+    <button id="connectUsbButton">Connect USB Device</button>
+    <p id="status"></p>
+
+    <script>
+        document.getElementById('checkUsbButton').addEventListener('click', async function() {
+            const statusElement = document.getElementById('status');
+            statusElement.textContent = 'Checking for USB devices...';
+
+            try {
+                const devices = await navigator.usb.getDevices();
+                
+                if (devices.length > 0) {
+                    statusElement.textContent = 'USB device found!';
+                    // You can add additional code here to inspect the devices and confirm if they are flash drives
+                } else {
+                    statusElement.textContent = 'No USB devices found.';
+                }
+            } catch (error) {
+                statusElement.textContent = `Error: ${error.message}`;
+            }
+        });
+
+        document.getElementById('connectUsbButton').addEventListener('click', async function() {
+            const statusElement = document.getElementById('status');
+            statusElement.textContent = 'Connecting to USB device...';
+
+            try {
+                const device = await navigator.usb.requestDevice({ filters: [] });
+                
+                if (device) {
+                    await device.open();
+                    statusElement.textContent = 'USB device connected!';
+                    // You can add additional code here to interact with the connected device
+                } else {
+                    statusElement.textContent = 'No USB device selected.';
+                }
+            } catch (error) {
+                statusElement.textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

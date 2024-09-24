@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Location QR Code Generator</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+</head>
+<body>
+    <h1>Location QR Code Generator</h1>
+    <div id="qrcode"></div>
+    
+    <input type="text" class="inp" id="latitude" placeholder="Latitude">
+    <br>
+    <br>
+    <br>
+    <br>
+    <input type="text" class="inp" id="longitude" placeholder="Longitude">
+    <button  class="gb" id="generateBtn" onclick="downloadQRCode()">Generate QR Code</button>
+    <button class="gb">download QR Code</button>
+    <div id="map"></div>
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

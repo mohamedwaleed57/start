@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wi-Fi QR Code Generator</title>
+    <style>
+        body {
+            background-color: #000;
+        }
+        h1{
+            color: #fff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .btn{
+    width: 160px;
+    background-color: #666;
+    cursor: pointer;
+    color: #fff;
+    height: 30px;
+    border-radius: 20px;
+    float: right;
+    float: left;
+    margin: 10px;
+}
+        #qrcode {
+            margin: 10px;
+    border: 10px solid #666;
+    width: 400px;
+    height: 400px;
+        }
+        .inp{
+    width: 500px;
+    border: #666 solid 5px;
+    background-color: #000;
+    color: #fff;
+    height: 25px;
+    font-size: 20px;
+    border-radius: 5px;
+}
+#encryption{
+    width: 510px;
+    border: #666 solid 5px;
+    background-color: #000;
+    color: #fff;
+    height: 35px;
+    font-size: 20px;
+    border-radius: 5px;
+}
+#qrcode2{
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <h1>Wi-Fi QR Code Generator</h1>
+    <div class="form-group">
+        <div id="qrcode"></div>
+        <canvas  id="qrcode2"><div></div></canvas>
+        <label for="ssid">Wi-Fi SSID:</label>
+        <input type="text" id="ssid" class="inp" placeholder="Enter Wi-Fi SSID">
+    </div>
+    <div class="form-group">
+        <label for="password">Wi-Fi Password:</label>
+        <input type="text" id="password" class="inp" placeholder="Enter Wi-Fi Password">
+    </div>
+    <div class="form-group">
+        <label for="encryption">Encryption Type:</label>
+        <select id="encryption">
+            <option value="WPA">WPA / WPA2</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">None</option>
+        </select>
+    </div>
+    <button class="btn" id="btn" onclick="generateQRCode()">Generate QR Code</button>
+    <button class="btn" id="savebtn" onclick="save()">save QR Code</button>
+    <button class="btn" id="downloadbtn" onclick="download()">download QR Code</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        function generateQRCode() {
+            const ssid = document.getElementById('ssid').value;
+            const password = document.getElementById('password').value;
+            const encryption = document.getElementById('encryption').value;
+            const qrCodeContainer = document.getElementById('qrcode',"qrcode2");
+            if(ssid == "" , password == ""){
+                alert("enter ssid and password");
+                return;
+            }
+            // Clear previous QR code
+            qrCodeContainer.innerHTML = '';
+
+            const wifiConfig = `WIFI:T:${encryption};S:${ssid};P:${password};;`;
+
+            QRCode.toCanvas(document.createElement('canvas'), wifiConfig, {
+                width: 400,
+                height: 400
+            }, function (error, canvas) {
+                if (error) console.error(error);
+                qrCodeContainer.appendChild(canvas);
+            });
+        }
+        function save() {
+      const dataURL = qrCodeContainer.toDataURL(`image/jpg`);
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = "qrcode.jpg";
+      document.body.appendChild(link);
+      link.click();
+      link.value = "qrcode.jpg"
+      document.body.removeChild(link);
+    }
+    </script>
+</body>
+</html>

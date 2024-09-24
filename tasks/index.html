@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            background-color: #000;
+    color: #fff;
+        }
+        #todo-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        h1{
+            color: #fff;
+        }
+        #todo-list li {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 5px;
+        }
+        .task-text {
+            flex: 1;
+        }
+        #todo-list li button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 5px 10px;
+            margin-left: 5px;
+        }
+        #todo-list li button.edit {
+            background-color: #007bff;
+        }
+        #todo-list li button:hover {
+            opacity: 0.8;
+        }
+        #todo-form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+        #todo-input,
+        #todo-date,
+        #todo-time {
+            width: 500px;
+    border: #666 solid 5px;
+    background-color: #000;
+    color: #fff;
+    height: 25px;
+    font-size: 20px;
+    float: left;
+    border-radius: 5px;
+        }
+        #add-button {
+            width: 160px;
+    background-color: #666;
+    cursor: pointer;
+    color: #fff;
+    height: 30px;
+    border-radius: 20px;
+    float: right;
+    float: left;
+    margin: 10px;
+        }
+    </style>
+</head>
+<body>
+        <h1>To-Do List</h1>
+        <p id="demo"></p>
+        <ul id="todo-list"></ul>
+        <form id="todo-form">
+            <input id="todo-input" type="text" placeholder="Enter a new task..." autocomplete="off" required>
+            <input id="todo-date" type="date" required>
+            <input id="todo-time" type="time" required>
+            <input id="todo-color" type="color" value="#ffffff">
+            <button id="add-button" onclick="f()" type="submit">Add</button>
+        </form>
+
+    <script>
+
+        function f(){
+            var c;
+            document.getElementById("demo").innerHTML = ++c;
+        }
+        document.getElementById('todo-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const todoInput = document.getElementById('todo-input');
+            const todoDate = document.getElementById('todo-date');
+            const todoTime = document.getElementById('todo-time');
+            const todoColor = document.getElementById('todo-color');
+            const taskText = todoInput.value.trim();
+            const taskDate = todoDate.value;
+            const taskTime = todoTime.value;
+            const taskColor = todoColor.value;
+            if (taskText !== '' && taskDate !== '' && taskTime !== '') {
+                const task = {
+                    text: taskText,
+                    date: taskDate,
+                    time: taskTime,
+                    color: taskColor
+                };
+                addTask(task);
+                saveTask(task);
+                todoInput.value = '';
+                todoDate.value = '';
+                todoTime.value = '';
+                todoColor.value = '#';
+            }
+        });
+
+        function addTask(task) {
+            const todoList = document.getElementById('todo-list');
+            const listItem = document.createElement('li');
+            listItem.style.backgroundColor = task.color;
+            const taskHeader = document.createElement('div');
+            taskHeader.classList.add('task-header');
+            const taskText = document.createElement('span');
+            taskText.textContent = `${task.text} - ${task.date} ${task.time}`;
+            taskText.classList.add('task-text');
+            const taskButtons = document.createElement('div');
+            taskButtons.classList.add('task-buttons');
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.classList.add('edit');
+            editButton.addEventListener('click', function() {
+                editTask(task, listItem, taskText);
+            });
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', function() {
+                todoList.removeChild(listItem);
+                deleteTask(task);
+            });
+            taskButtons.appendChild(editButton);
+            taskButtons.appendChild(deleteButton);
+            taskHeader.appendChild(taskText);
+            taskHeader.appendChild(taskButtons);
+            listItem.appendChild(taskHeader);
+            todoList.appendChild(listItem);
+        }
+
+        function editTask(oldTask, listItem, taskText) {
+            const newTaskText = prompt('Edit your task text:', oldTask.text);
+            const newTaskDate = prompt('Edit your task date:', oldTask.date);
+            const newTaskTime = prompt('Edit your task time:', oldTask.time);
+            const newTaskColor = prompt('Edit your task color:', oldTask.color);
+            if (newTaskText !== null && newTaskText.trim() !== '' && newTaskDate !== '' && newTaskTime !== '' && newTaskColor !== '') {
+                const newTask = {
+                    text: newTaskText,
+                    date: newTaskDate,
+                    time: newTaskTime,
+                    color: newTaskColor
+                };
+                taskText.textContent = `${newTask.text} - ${newTask.date} ${newTask.time}`;
+                listItem.style.backgroundColor = newTask.color;
+                updateTask(oldTask, newTask);
+            }
+        }
+
+        function saveTask(task) {
+            let tasks = JSON.parse(localStorage.getItem('todoTasks')) || [];
+            tasks.push(task);
+            localStorage.setItem('todoTasks', JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            let tasks = JSON.parse(localStorage.getItem('todoTasks')) || [];
+            tasks.forEach((task) => {
+                addTask(task);
+            });
+        }
+
+        function deleteTask(task) {
+            let tasks = JSON.parse(localStorage.getItem('todoTasks')) || [];
+            tasks = tasks.filter(t => t.text !== task.text || t.date !== task.date || t.time !== task.time);
+            localStorage.setItem('todoTasks', JSON.stringify(tasks));
+        }
+
+        function updateTask(oldTask, newTask) {
+            let tasks = JSON.parse(localStorage.getItem('todoTasks')) || [];
+            const taskIndex = tasks.findIndex(t => t.text === oldTask.text && t.date === oldTask.date && t.time === oldTask.time);
+            if (taskIndex > -1) {
+                tasks[taskIndex] = newTask;
+                localStorage.setItem('todoTasks', JSON.stringify(tasks));
+            }
+        }
+
+        // Load tasks when the page loads
+        document.addEventListener('DOMContentLoaded', loadTasks);
+    </script>
+</body>
+</html>

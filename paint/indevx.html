@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامج رسم بسيط</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        canvas {
+            border: 1px solid black;
+            background-color: white;
+            cursor: crosshair;
+        }
+
+        .controls {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>برنامج رسم بسيط</h1>
+    <canvas id="drawingCanvas"></canvas>
+    <div class="controls">
+        <button onclick="clearCanvas()">مسح اللوحة</button>
+        <label for="colorPicker">اختر اللون: </label>
+        <input type="color" id="colorPicker" value="#000000">
+        <label for="sizePicker">حجم الفرشاة: </label>
+        <input type="range" id="sizePicker" min="1" max="50" value="5">
+        <button onclick="downloadCanvas()">تحميل اللوحة</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const context = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth - 20;
+        canvas.height = window.innerHeight - 150;
+
+        let drawing = false;
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+
+        function startDrawing(event) {
+            drawing = true;
+            draw(event);
+        }
+
+        function stopDrawing() {
+            drawing = false;
+            context.beginPath();
+        }
+
+        function draw(event) {
+            if (!drawing) return;
+
+            context.lineWidth = document.getElementById('sizePicker').value;
+            context.lineCap = 'round';
+            context.strokeStyle = document.getElementById('colorPicker').value;
+
+            context.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            context.stroke();
+            context.beginPath();
+            context.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        }
+
+        function clearCanvas() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function downloadCanvas() {
+            const link = document.createElement('a');
+            link.download = 'my-drawing.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>

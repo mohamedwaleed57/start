@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="titlePage">QR Code Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include the qrcode-generator library -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+</head>
+<body>
+    <a href="QR generator for wifi/index.html"><button class="gbe">QRCode for Wi-Fi</button></a>
+    <a href="QR generator for location/index.html"><button class="gbe">QRCode for location</button></a>
+    <a href="QR generator for phone/index.html"><button class="gbe">QRCode for phone</button></a>
+    <a href="QR generator for vcard/index.html"><button class="gbe">QRCode for vcard</button></a>
+    <br>
+    <br>
+    <br>
+<h1 align="middle">QR Code Generator</h1>
+
+
+
+<br>
+<br>
+<div id="qrcode"></div>
+<textarea maxlength="191" id="data-input" placeholder="Enter text or URL" list="wew"></textarea>
+   <datalist id="wew">
+</datalist>
+<button class="gb" id="generate-btn" onclick="generateQRCode()">Generate QR Code</button>
+<button class="gb" id="download-btn" onclick="downloadQRCode()">Download</button>
+
+<p id="data-display"></p>
+<script src="script.js"></script>
+</body>
+</html>

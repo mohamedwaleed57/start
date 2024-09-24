@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    color: #f39c12;
+    margin-bottom: 20px;
+}
+
+form, .search, table {
+    margin: 20px 0;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="text"], input[type="number"] {
+    background-color: #333;
+    color: #fff;
+}
+
+button {
+    background-color: purple;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: darkmagenta;
+}
+
+#total {
+    display: block;
+    margin: 5px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.search input {
+    width: calc(50% - 10px);
+}
+
+.search button {
+    background-color: purple;
+    color: white;
+    margin: 5px;
+    width: 48%;
+}
+
+button#deleteAllBtn {
+    width: 100%;
+    background-color: #d9534f;
+}
+
+button#deleteAllBtn:hover {
+    background-color: #c9302c;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #444;
+}
+
+th {
+    background-color: purple;
+    color: white;
+}
+
+td {
+    background-color: #333;
+    color: #fff;
+}
+
+button.update, button.delete {
+    padding: 5px 10px;
+    margin: 0;
+    border-radius: 5px;
+}
+
+button.update {
+    background-color: orange;
+    color: white;
+}
+
+button.update:hover {
+    background-color: darkorange;
+}
+
+button.delete {
+    background-color: #d9534f;
+    color: white;
+}
+
+button.delete:hover {
+    background-color: #c9302c;
+}

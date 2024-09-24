@@ -1,0 +1,31 @@
+body {
+    background-color: #000;
+    color: #fff;
+}
+.inp{
+    width: 500px;
+    border: #666 solid 5px;
+    background-color: #000;
+    color: #fff;
+    height: 25px;
+    font-size: 20px;
+    float: left;
+    border-radius: 5px;
+}
+#qrcode {
+    margin: 10px;
+    border: 10px solid #666;
+    width: 400px;
+    height: 400px;
+}
+#generateBtn{
+    width: 160px;
+    background-color: #666;
+    cursor: pointer;
+    color: #fff;
+    height: 30px;
+    border-radius: 20px;
+    float: right;
+    float: left;
+    margin: 10px;
+}

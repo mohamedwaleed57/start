@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>phone</title>
+</head>
+<body>
+    <style>
+        .inp{
+    width: 190px;
+    height: 20px;
+border-radius: 20px;
+text-align: center;
+background-color: #000;
+color: #fff;
+border: #fff solid 3px;
+font-weight: 900;
+}
+body{
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 99vh;
+    width: 140vh;
+}
+.b{
+    background-color: #fff;
+    color: #000;
+    border: #000 solid 5px;
+    border-radius: 30px;
+    height: 50px;
+    width: 130px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.b:hover{
+    background-color: #000;
+    color: #fff;
+    border: #666 solid 5px;
+    border-radius: 30px;
+    height: 50px;
+    width: 130px;
+    font-size: 20px;
+}
+.g{
+    color: #fff;
+}
+.bag{
+    width: 600px;
+    height: 600px;
+    align-items: center;
+    background-color: #666;
+    border-radius: 5px;
+    justify-content: center;
+    display: flex;
+}
+#inpURL{
+    display: none;
+}
+#hide{
+    background-color: #3eaa00;
+    width: 200px;
+    cursor: pointer;
+    height: 100px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: solid 5px #fff;
+    margin: 10px;
+}
+#gh{
+    font-size: 20px;
+    margin: 10px;
+}
+#hide:hover{
+    background-color: #fff;
+    width: 200px;
+    cursor: pointer;
+    height: 100px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: solid 5px #3eaa00;
+    margin: 10px;
+}
+#go{
+    background-color: #3eaa00;
+    width: 110px;
+    cursor: pointer;
+    height: 70px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: solid 5px #fff;
+    display: none;
+    margin: 10px;
+}
+#go:hover{
+    background-color: #fff;
+    width: 110px;
+    cursor: pointer;
+    height: 70px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: solid 5px #3eaa00;
+    margin: 10px;
+    display: none;
+}
+#aurl{
+    display: block;
+}
+.callling{
+    background-color: #fff;
+    color: #000;
+    border: #000 solid 5px;
+    border-radius: 30px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 15px;
+    max-width: 200%;
+    word-wrap: break-word;
+}
+.callling:hover{
+    background-color: #000;
+    color: #fff;
+    border: #666 solid 5px;
+    border-radius: 30px;
+    height: 50px;
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 15px;
+    max-width: 200%;
+    word-wrap: break-word;
+}
+    </style>
+    <button id="hide" onclick="show()">do you want to go to other page ?</button>
+    <a id="aurl" target="_blank"><button id="go">go to page</button></a>
+    <input type="text" class="inp" id="inpURL">
+    <br>
+    <div class="bag">
+        <label id="gh" for="input">enter number phone</label>
+        <input type="number" id="input" class="inp">
+        <a class="ab" id="ab"><button onclick="call()" class="b">call</button></a>
+    </div>
+    <div id="state"></div>
+    <script>
+        function call(){
+    const ab = document.getElementById("ab");
+    var input = document.getElementById("input").value;
+    const titlePG = document.getElementById("title");
+    var mood = prompt(`name for this number phone: ${input}`);
+    if(!mood){
+        alert("please enter name for this number phone");
+        var mood = prompt(`name for this number phone: ${input}`);
+    };
+    if(!input){
+        alert("please enter number phone");
+    };
+    if(input.value = ""){
+        console.error("this is error for input don`t have any numbers")
+    }
+    if(mood.value = ""){
+        console.error("this is error for input don`t have any numbers")
+    }
+    console.log(mood + ": " + input);
+    ab.href = "tel:" + input;
+    const saves = document.getElementById("state").innerHTML += `<a href="tel: ${input}"><button class="callling">${mood}</button></a>`;
+};
+function show(){
+    const f = document.getElementById("inpURL");
+    const g = document.getElementById("hide");
+    const go = document.getElementById("go");
+    f.style.display = "block";
+    go.style.display = "block";
+    g.style.display = "none";
+    go.onclick = function(){
+    const bi = document.getElementById("aurl");
+    const fgh = document.getElementById("inpURL").value;
+    if(!fgh){
+        alert("please enter name for wb site");
+    }
+    bi.href = "https://www." + fgh + ".com";
+}
+}
+    </script>
+</body>
+</html>

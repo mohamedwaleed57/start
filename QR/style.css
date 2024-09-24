@@ -1,0 +1,62 @@
+body{
+    background-color: #000;
+    color: #fff;
+}
+h1{
+    color: #fff;
+}
+p{
+    color: #fff;
+}
+#data-input{
+    width: 500px;
+    border: #666 solid 5px;
+    background-color: #000;
+    color: #fff;
+    height: 25px;
+    font-size: 20px;
+    float: left;
+    border-radius: 5px;
+}
+.gb{
+    width: 160px;
+    background-color: #666;
+    cursor: pointer;
+    color: #fff;
+    height: 30px;
+    border-radius: 20px;
+    float: right;
+    float: left;
+    margin: 10px;
+}
+#qrcode{
+    margin: 10px;
+    border: 10px solid #666;
+    width: 400px;
+    height: 400px;
+}
+#inp{
+    display: block;
+    float: left;
+}
+.dff{
+    margin: 10px;
+    width: 200px;
+    background-color: #fff;
+    color: #fa0;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.gbe{
+    width: 160px;
+    background-color: #666;
+    cursor: pointer;
+    color: #fff;
+    height: 30px;
+    border-radius: 20px;
+    float: right;
+    float: left;
+    margin: 10px;
+    border-bottom: #fa0 solid 5px;
+    border-top: #fa0 solid 5px;
+}

@@ -1,0 +1,42 @@
+body {
+    background-color: #000;
+    color: #fff;
+}
+
+h1 {
+    color: #fff;
+}
+
+#map {
+    width: 1000px;
+    height: 350px;
+    margin: 20px;
+}
+
+#qrcode {
+    margin: 10px;
+    border: 10px solid #666;
+    width: 400px;
+    height: 400px;
+}
+.inp{
+    width: 500px;
+    border: #666 solid 5px;
+    background-color: #000;
+    color: #fff;
+    height: 25px;
+    font-size: 20px;
+    float: left;
+    border-radius: 5px;
+}
+.gb{
+    width: 160px;
+    background-color: #666;
+    cursor: pointer;
+    color: #fff;
+    height: 30px;
+    border-radius: 20px;
+    float: right;
+    float: left;
+    margin: 10px;
+}
